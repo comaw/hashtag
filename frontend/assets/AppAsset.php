@@ -20,7 +20,7 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/d/css.css',
         'css/d/css1.css',
-        'css/d/font-awe.css',
+        'css/d/font-awesome.min.css',
         'css/d/mvpready-admin.css',
         'css/site.css',
     ];

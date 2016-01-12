@@ -102,6 +102,9 @@ return [
                 'site/requestpasswordreset' => 'site/requestpasswordreset',
                 'site/reset-password' => 'site/resetpassword',
 
+                'hashtag' => 'hashtag/index',
+                'сatalog' => 'сatalog/index',
+
 
                 '<controller:\w+>/<id:\d+>/<action:(create|update|delete)>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
