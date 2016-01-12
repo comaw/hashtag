@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use app\models\LoginError;
 use Yii;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -85,13 +86,20 @@ class SiteController extends Controller
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
-
+        $errorLogin = null;
         $model = new LoginForm();
+        $errorLogin = LoginError::getLog();
+        if($errorLogin){
+            $model = new LoginForm(['scenario' => 'error']);
+        }
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            LoginError::del();
             return $this->goBack();
         } else {
+            $errorLogin = LoginError::getLog();
             return $this->render('login', [
                 'model' => $model,
+                'errorLogin' => $errorLogin,
             ]);
         }
     }

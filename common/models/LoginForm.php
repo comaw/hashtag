@@ -1,6 +1,7 @@
 <?php
 namespace common\models;
 
+use app\models\LoginError;
 use Yii;
 use yii\base\Model;
 
@@ -12,6 +13,7 @@ class LoginForm extends Model
     public $username;
     public $password;
     public $rememberMe = true;
+    public $verifyCode;
 
     private $_user;
 
@@ -23,9 +25,22 @@ class LoginForm extends Model
     {
         return [
             [['username', 'password'], 'required'],
-            ['rememberMe', 'boolean'],
-            ['password', 'validatePassword'],
+            [['rememberMe'], 'boolean'],
+            [['password'], 'validatePassword'],
+
+            [['verifyCode'], \common\recaptcha\ReCaptchaValidator::className(), 'secret' => \common\recaptcha\ReCaptcha::SECRET_KEY, 'on' => 'error'],
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios['default'] = ['username', 'password', 'rememberMe'];
+        $scenarios['error'] = ['username', 'password', 'rememberMe', 'verifyCode'];
+        return $scenarios;
     }
 
     /**
@@ -37,6 +52,7 @@ class LoginForm extends Model
             'username' => Yii::t('app', 'Email'),
             'password' => Yii::t('app', 'Password'),
             'rememberMe' => Yii::t('app', 'Remember Me'),
+            'verifyCode' => Yii::t('app', 'Verify Code'),
         ];
     }
 
@@ -52,6 +68,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
+                LoginError::addLog(null, $this->username);
                 $this->addError($attribute, Yii::t('app', 'Incorrect username or password.'));
             }
         }

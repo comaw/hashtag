@@ -13,6 +13,9 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $confirm;
+    public $verifyCode;
+    public $laws;
 
     /**
      * @inheritdoc
@@ -20,19 +23,40 @@ class SignupForm extends Model
     public function rules()
     {
         return [
+            [['username', 'email'], 'filter', 'filter' => 'strip_tags'],
             ['username', 'filter', 'filter' => 'trim'],
             ['username', 'required'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This username has already been taken.'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => Yii::t('app', 'This username has already been taken.')],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'filter', 'filter' => 'trim'],
             ['email', 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This email address has already been taken.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => Yii::t('app', 'This email address has already been taken.')],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+
+            [['confirm'], 'compare', 'compareAttribute'=> 'password', 'message'=> Yii::t('app', 'Passwords don\'t match') ],
+            [['verifyCode'], \common\recaptcha\ReCaptchaValidator::className(), 'secret' => \common\recaptcha\ReCaptcha::SECRET_KEY],
+
+            ['laws', 'required', 'requiredValue' => 1, 'message' => Yii::t('app', 'You must agree with terms')],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => Yii::t('app', 'Name'),
+            'email' => Yii::t('app', 'Email'),
+            'password' => Yii::t('app', 'Password'),
+            'confirm' => Yii::t('app', 'Confirm Password'),
+            'laws' => Yii::t('app', 'I agree with Terms of Use.'),
+            'verifyCode' => Yii::t('app', 'Verify Code'),
         ];
     }
 

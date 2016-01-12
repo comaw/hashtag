@@ -14,7 +14,7 @@ return [
     'language' => 'ru',
     'charset' => 'UTF-8',
     'timeZone' => 'Europe/Moscow',
-    'name' => \Yii::t('app', 'Натуральный камень'),
+    'name' => \Yii::t('app', 'HashTags'),
     'controllerNamespace' => 'frontend\controllers',
     'modules' => [
         'gii' => [
@@ -49,24 +49,24 @@ return [
             'thousandSeparator' => ' ',
             'currencyCode' => '',
         ],
-//        'assetManager' => [
-//            'bundles' => [
+        'assetManager' => [
+            'bundles' => [
 //                'yii\web\JqueryAsset' => [
 //                    'sourcePath' => null,
 //                    'js' => ['js/jquery00.js']
 //                ],
-//                'yii\bootstrap\BootstrapPluginAsset' => [
-//                    'js'=>[]
-//                ],
-//                'yii\bootstrap\BootstrapAsset' => [
-//                    'sourcePath' => null,
-//                    'css' => ['css/d/bootstra.css'],
-//                    'js' => ['js/bootstra.js'],
-//                ],
-//
-//            ],
-//
-//        ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js'=>[]
+                ],
+                'yii\bootstrap\BootstrapAsset' => [
+                    'sourcePath' => null,
+                    'css' => ['css/d/bootstrap.min.css'],
+                    'js' => ['js/bootstrap.min.js'],
+                ],
+
+            ],
+
+        ],
         'i18n'=> [
             'translations' => [
                 'app' => [
@@ -81,7 +81,7 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname='.(($_SERVER['REMOTE_ADDR'] == '127.0.0.1')?'1naturalniykamen':''),
+            'dsn' => 'mysql:host=localhost;dbname='.(($_SERVER['REMOTE_ADDR'] == '127.0.0.1')?'hashtag':''),
             'username' => ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')?'root':'',
             'password' => ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')?'':'',
             'charset' => 'utf8',
