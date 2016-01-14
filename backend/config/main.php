@@ -45,9 +45,9 @@ return [
         ],
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname='.(($_SERVER['REMOTE_ADDR'] == '127.0.0.1')?'hashtag':''),
-            'username' => ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')?'root':'',
-            'password' => ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')?'':'',
+            'dsn' => 'mysql:host=localhost;dbname='.(($_SERVER['REMOTE_ADDR'] == '127.0.0.1')?'hashtag':'hashtag'),
+            'username' => ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')?'root':'hashtag',
+            'password' => ($_SERVER['REMOTE_ADDR'] == '127.0.0.1')?'':'12hashtag12',
             'charset' => 'utf8',
             'tablePrefix' => 'nk_',
         ],
