@@ -10,6 +10,7 @@ use Yii;
  * @property string $id
  * @property string $hashtag
  * @property string $user
+ * @property string $like
  * @property string $description
  * @property string $created
  */
@@ -32,7 +33,7 @@ class HashtagDescription extends \yii\db\ActiveRecord
             [['description'], 'filter', 'filter' => 'trim', 'skipOnArray' => true],
             [['description'], 'filter', 'filter' => 'strip_tags', 'skipOnArray' => true],
             [['hashtag', 'description'], 'required'],
-            [['hashtag', 'user'], 'integer'],
+            [['hashtag', 'user', 'like'], 'integer'],
             [['created'], 'safe'],
             [['description'], 'string', 'max' => 500]
         ];
@@ -47,6 +48,7 @@ class HashtagDescription extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'hashtag' => Yii::t('app', 'Hashtag'),
             'user' => Yii::t('app', 'User'),
+            'like' => Yii::t('app', 'Like'),
             'description' => Yii::t('app', 'Description'),
             'created' => Yii::t('app', 'Created'),
         ];

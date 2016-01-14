@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\HashtagSearch */
@@ -31,10 +32,26 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => false,
             ],
+            [
+                'label' => Yii::t('app', 'Description'),
+                'format' => 'raw',
+                'value' => function($data){
+                    return isset($data->description->description) ? $data->description->description : '';
+                },
+                'filter' => false,
+            ],
+            [
+                'attribute' => '',
+                'format' => 'raw',
+                'value' => function($data){
+                    return "<a href='".Url::toRoute(['hashtag/view', 'tag' => $data->tag])."' class='btn btn-info btn-sm' title='".Html::encode(Yii::t('app', 'Detail'))."'>".Yii::t('app', 'Detail')."</a>";
+                },
+                'filter' => false,
+            ],
 //            'active',
 //            'created',
 
-            ['class' => 'yii\grid\ActionColumn'],
+//            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 

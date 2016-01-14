@@ -74,4 +74,12 @@ class Hashtag extends \yii\db\ActiveRecord
             'created' => Yii::t('app', 'Created'),
         ];
     }
+
+    public function getDescription() {
+        return $this->hasOne(HashtagDescription::className(), ['hashtag' => 'id'])->orderBy('like desc');
+    }
+
+    public function getDescriptions() {
+        return $this->hasMany(HashtagDescription::className(), ['hashtag' => 'id'])->orderBy('like desc');
+    }
 }

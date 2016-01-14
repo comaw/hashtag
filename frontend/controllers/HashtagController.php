@@ -44,13 +44,16 @@ class HashtagController extends Controller
 
     /**
      * Displays a single Hashtag model.
-     * @param string $id
+     * @param string $tag
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($tag)
     {
+        $tag = ltrim($tag, '#');
+        $newDescription = new HashtagDescription();
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($tag),
+            'newDescription' => $newDescription,
         ]);
     }
 
@@ -89,7 +92,7 @@ class HashtagController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Hashtag::findOne($id)) !== null) {
+        if (($model = Hashtag::find()->where("tag = :tag", [':tag' => $id])->one()) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));

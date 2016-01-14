@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'tag')->textInput(['maxlength' => true])->hint(Yii::t('app', 'For example: #anyhashtag')) ?>
 
-    <?= $form->field($modelDescription, 'description')->textarea(['maxlength' => true])->hint(Yii::t('app', 'Description and use the hashtag')) ?>
+    <?= $form->field($modelDescription, 'description')->textarea(['maxlength' => true])->hint(Yii::t('app', 'Description and use the hashtag. Max 500 chars')) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

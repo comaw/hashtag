@@ -59,10 +59,10 @@ return [
     'Create' => 'Создать',
     'Update' => 'Обновить',
     'Create Hashtag' => 'Создать хештег',
-    'Description and use the hashtag' => 'Описание хэштега и его использования',
+    'Description and use the hashtag. Max 500 chars' => 'Описание хэштега и его использования. Max 500 символов',
     'Description' => 'Описание',
-    '' => '',
-    '' => '',
+    'Detailed information' => 'Подробная информация',
+    'Detail' => 'Подробно',
     '' => '',
     '' => '',
 ];

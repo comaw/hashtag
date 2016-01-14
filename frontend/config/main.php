@@ -103,7 +103,8 @@ return [
                 'site/reset-password' => 'site/resetpassword',
 
                 'hashtag' => 'hashtag/index',
-                'hashtag/view/<id:\d+>' => 'hashtag/view',
+//                'hashtag/view/<id:\d+>' => 'hashtag/view',
+                'hashtag/<tag:\#[a-zA-Z0-9а-яА-Я_]+>/view' => 'hashtag/view',
                 'сatalog' => 'сatalog/index',
 
 
