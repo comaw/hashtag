@@ -3,9 +3,11 @@
 namespace frontend\controllers;
 
 use app\models\HashtagDescription;
+use app\models\HashtagDescriptionLike;
 use Yii;
 use app\models\Hashtag;
 use app\models\HashtagSearch;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -43,6 +45,60 @@ class HashtagController extends Controller
     }
 
     /**
+     * Lists all Hashtag models.
+     * @return mixed
+     */
+    public function actionSearch()
+    {
+        $model = new Hashtag();
+        $tags = [];
+        if(Yii::$app->request->post('tagsearch')){
+            $tag = ltrim(Yii::$app->request->post('tagsearch'), '#').'%';
+            $tags = Hashtag::find()->where(['like', 'tag', $tag, false])->limit(50)->orderBy("tag asc")->all();
+        }
+        return $this->render('search', [
+            'model' => $model,
+            'tags' => $tags,
+        ]);
+    }
+
+    public function actionLike($id)
+    {
+        if(Yii::$app->user->isGuest){
+            $r = [];
+            $r['e'] = Yii::t('app', 'Нужно войти на сайт под своим логином или зарегистрироваться');
+            echo Json::encode($r);
+            Yii::$app->end();
+        }
+
+        $model = HashtagDescription::find()->where("id = :id", [':id' => $id])->one();
+        if(!$model){
+            throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        }
+        $like = HashtagDescriptionLike::find()->where("description = :description AND user = :user", [
+            ':description' => $model->id,
+            ':user' => Yii::$app->user->id,
+        ])->one();
+        if($like){
+            $r = [];
+            $r['e'] = Yii::t('app', 'Ваш голос уже учтен!');
+            echo Json::encode($r);
+            Yii::$app->end();
+        }
+        $model->likes = $model->likes + 1;
+        $model->save();
+        $like = new HashtagDescriptionLike();
+        $like->description = $model->id;
+        $like->user = Yii::$app->user->id;
+        if($like->validate()){
+            $like->save();
+        }
+        $r = [];
+        $r['likes'] = (int)$model->likes;
+        echo Json::encode($r);
+    }
+
+    /**
      * Displays a single Hashtag model.
      * @param string $tag
      * @return mixed
@@ -50,9 +106,18 @@ class HashtagController extends Controller
     public function actionView($tag)
     {
         $tag = ltrim($tag, '#');
+        $model = $this->findModel($tag);
         $newDescription = new HashtagDescription();
+        if ($newDescription->load(Yii::$app->request->post())) {
+            $newDescription->hashtag = $model->id;
+            $newDescription->user = !Yii::$app->user->isGuest ? Yii::$app->user->id : 0;
+            if($newDescription->validate()){
+                $newDescription->save();
+                return $this->refresh();
+            }
+        }
         return $this->render('view', [
-            'model' => $this->findModel($tag),
+            'model' => $model,
             'newDescription' => $newDescription,
         ]);
     }
@@ -73,7 +138,7 @@ class HashtagController extends Controller
                 $model->save();
                 $modelDescription->hashtag = $model->id;
                 $modelDescription->save();
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['view', 'tag' => $model->tag]);
             }
         }
         return $this->render('create', [

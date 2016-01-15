@@ -76,10 +76,10 @@ class Hashtag extends \yii\db\ActiveRecord
     }
 
     public function getDescription() {
-        return $this->hasOne(HashtagDescription::className(), ['hashtag' => 'id'])->orderBy('like desc');
+        return $this->hasOne(HashtagDescription::className(), ['hashtag' => 'id'])->orderBy('likes desc, id desc');
     }
 
     public function getDescriptions() {
-        return $this->hasMany(HashtagDescription::className(), ['hashtag' => 'id'])->orderBy('like desc');
+        return $this->hasMany(HashtagDescription::className(), ['hashtag' => 'id'])->orderBy('likes desc, id desc');
     }
 }

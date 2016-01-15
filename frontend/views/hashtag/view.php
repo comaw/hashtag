@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Hashtag */
@@ -20,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-xs-12">
             <h3><?=Yii::t('app', 'Значения')?>:</h3>
             <?php if(sizeof($model->descriptions) > 0){foreach($model->descriptions AS $description){ ?>
-            <blockquote><?=isset($description->description) ? $description->description : ''?><a class="label label-primary pull-right"><?=Yii::t('app', 'Like')?> (<?=(int)$description->like?>)</a></blockquote>
+            <blockquote><?=isset($description->description) ? $description->description : ''?><a role="like" href="<?=Url::toRoute(['hashtag/like', 'id' => $description->id])?>" class="label label-primary pull-right"><?=Yii::t('app', 'Like')?> (<span><?=(int)$description->likes?></span>)</a></blockquote>
             <hr>
             <?php }} ?>
         </div>

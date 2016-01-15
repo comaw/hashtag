@@ -7,6 +7,7 @@ use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use yii\helpers\Url;
+use yii\widgets\ActiveForm;
 
 
 AppAsset::register($this);
@@ -65,10 +66,16 @@ AppAsset::register($this);
                 <i class="fa fa-bars"></i>
             </a>
             <nav class="collapse mainnav-collapse" role="navigation">
-                <form class="mainnav-form" action="<?=Url::toRoute('/search')?>" method="get" role="search" accept-charset="<?=Yii::$app->charset?>">
-                    <input type="text" name="search_text" value="<?=(isset($_GET['search_text']) ? $_GET['search_text'] : '')?>" class="form-control input-md mainnav-search-query" placeholder="<?=Yii::t('app', 'Search')?>">
+                <?php $form = ActiveForm::begin([
+                    'action' => Url::toRoute('hashtag/search'),
+                    'options' => [
+                        'class' => "mainnav-form",
+                    ],
+                ]); ?>
+                <input type="text" name="tagsearch" value="<?=Yii::$app->request->post('tagsearch')?>" class="form-control input-md mainnav-search-query" id="tagsearch" placeholder="<?=Yii::t('app', 'Search')?>">
+
                     <button class="btn btn-sm mainnav-form-btn"><i class="fa fa-search"></i></button>
-                </form>
+                    <?php ActiveForm::end(); ?>
                 <?=\frontend\widgets\Menu::widget([
                     'url' => [
                         Yii::t('app', 'Home') => ['link' => Url::home(), 'fa' => 'fa-map-o'],
