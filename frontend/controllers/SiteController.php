@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use app\models\Hashtag;
 use app\models\LoginError;
 use Yii;
 use common\models\LoginForm;
@@ -64,6 +65,18 @@ class SiteController extends Controller
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
+    }
+
+    public function actionSitemap()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        $headers = Yii::$app->response->headers;
+        $headers->add('Content-Type', 'text/xml');
+
+        $models = Hashtag::find()->orderBy("id desc")->all();
+        return $this->renderPartial('sitemap', [
+            'models' => $models,
+        ]);
     }
 
     /**

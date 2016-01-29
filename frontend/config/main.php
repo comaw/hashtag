@@ -23,6 +23,12 @@ return [
         ],
     ],
     'components' => [
+        'twitter' => [
+            'class' => 'richweber\twitter\Twitter',
+            'consumer_key' => '9YVNzpAjUX4ODNbvCZ2PDDsPk',
+            'consumer_secret' => 'bhZh1NTkSC6yDJvxIh1llgTVpKXoovLGKhU9pKPxwPE1PAwsOH',
+            'callback' => 'http://myhashtag.top/',
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -106,6 +112,12 @@ return [
 //                'hashtag/view/<id:\d+>' => 'hashtag/view',
                 'hashtag/<tag:\#[a-zA-Z0-9а-яА-Я_]+>/view' => 'hashtag/view',
                 'сatalog' => 'сatalog/index',
+
+                [
+                    'pattern' => 'sitemap',
+                    'route' => 'site/sitemap',
+                    'suffix' => '.xml',
+                ],
 
 
                 '<controller:\w+>/<id:\d+>/<action:(create|update|delete)>' => '<controller>/<action>',

@@ -1,2 +1,13 @@
+User-agent: Yandex
+Disallow: /hashtag/search/
+Disallow: /hashtag/add/
+Disallow: /cgi-bin/
+Host: myhashtag.top
+Sitemap: http://myhashtag.top/sitemap.xml
+
+
 User-agent: *
-Disallow:
+Disallow: /hashtag/search/
+Disallow: /hashtag/add/
+Disallow: /cgi-bin/
+Sitemap: http://myhashtag.top/sitemap.xml
