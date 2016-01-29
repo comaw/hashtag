@@ -26,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php }} ?>
         </div>
     </div>
+    <?php if(!Yii::$app->user->isGuest){ ?>
     <div class="row">
         <div class="col-xs-12">
             <h3><?=Yii::t('app', 'Добавить свое описание')?>:</h3>
@@ -40,5 +41,5 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php ActiveForm::end(); ?>
         </div>
     </div>
-
+    <?php } ?>
 </div>

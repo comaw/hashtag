@@ -11,6 +11,7 @@ use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * HashtagController implements the CRUD actions for Hashtag model.
@@ -20,6 +21,25 @@ class HashtagController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'actions' => ['index', 'search', 'view'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
+                    [
+                        'actions' => ['index', 'search', 'view', 'add', 'like'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                    [
+                        'allow' => false,
+                        'roles' => ['*'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -108,7 +128,7 @@ class HashtagController extends Controller
         $tag = ltrim($tag, '#');
         $model = $this->findModel($tag);
         $newDescription = new HashtagDescription();
-        if ($newDescription->load(Yii::$app->request->post())) {
+        if ($newDescription->load(Yii::$app->request->post()) && !Yii::$app->user->isGuest) {
             $newDescription->hashtag = $model->id;
             $newDescription->user = !Yii::$app->user->isGuest ? Yii::$app->user->id : 0;
             if($newDescription->validate()){
