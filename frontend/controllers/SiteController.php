@@ -73,7 +73,7 @@ class SiteController extends Controller
         $headers = Yii::$app->response->headers;
         $headers->add('Content-Type', 'text/xml');
 
-        $models = Hashtag::find()->orderBy("id desc")->all();
+        $models = Hashtag::find()->orderBy("id desc")->limit(1000)->all();
         return $this->renderPartial('sitemap', [
             'models' => $models,
         ]);

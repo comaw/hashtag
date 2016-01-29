@@ -14,7 +14,7 @@ return [
     'language' => 'ru',
     'charset' => 'UTF-8',
     'timeZone' => 'Europe/Moscow',
-    'name' => \Yii::t('app', 'HashTags'),
+    'name' => \Yii::t('app', 'MyHashTags'),
     'controllerNamespace' => 'frontend\controllers',
     'modules' => [
         'gii' => [
