@@ -25,12 +25,12 @@ class HashtagController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'search', 'view'],
+                        'actions' => ['index', 'search', 'view', 'like'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['index', 'search', 'view', 'add', 'like'],
+                        'actions' => ['index', 'search', 'view', 'add'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],

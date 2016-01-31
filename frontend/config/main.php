@@ -13,7 +13,7 @@ return [
     'sourceLanguage'=>'en_US',
     'language' => 'ru',
     'charset' => 'UTF-8',
-    'timeZone' => 'Europe/Moscow',
+    'timeZone' => 'Europe/Kiev',
     'name' => \Yii::t('app', 'MyHashTags'),
     'controllerNamespace' => 'frontend\controllers',
     'modules' => [
@@ -48,7 +48,7 @@ return [
             'class' => 'yii\rbac\PhpManager',
         ],
         'formatter' => [
-            'timeZone' => 'Europe/Moscow',
+            'timeZone' => 'Europe/Kiev',
             'dateFormat' => 'dd.MM.yyyy',
             'datetimeFormat' => 'dd/MM/yyyy H:i:s',
             'decimalSeparator' => ',',
@@ -112,6 +112,7 @@ return [
 //                'hashtag/view/<id:\d+>' => 'hashtag/view',
                 'hashtag/<tag:\#[a-zA-Z0-9а-яА-Я_]+>/view' => 'hashtag/view',
                 'сatalog' => 'сatalog/index',
+                'rss' => 'site/rss',
 
                 [
                     'pattern' => 'sitemap',

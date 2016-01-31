@@ -79,6 +79,18 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionRss()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        $headers = Yii::$app->response->headers;
+        $headers->add('Content-Type', 'text/xml');
+
+        $models = Hashtag::find()->orderBy("id desc")->limit(1000)->all();
+        return $this->renderPartial('rss', [
+            'models' => $models,
+        ]);
+    }
+
     /**
      * Displays homepage.
      *

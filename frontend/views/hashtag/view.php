@@ -15,15 +15,27 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Hashtags'), 'url' =>
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="hashtag-view">
-    <h1><?=Yii::t('app', 'Hashtag')?>: <?=$this->title?></h1>
-    <p><time datetime="<?=$model->created?>"><?=date("d/m/Y", strtotime($model->created))?></time></p>
     <div class="row">
-        <div class="col-xs-12">
-            <h3><?=Yii::t('app', 'Значения')?>:</h3>
-            <?php if(sizeof($model->descriptions) > 0){foreach($model->descriptions AS $description){ ?>
-            <blockquote><?=isset($description->description) ? $description->description : ''?><a role="like" href="<?=Url::toRoute(['hashtag/like', 'id' => $description->id])?>" class="label label-primary pull-right"><?=Yii::t('app', 'Like')?> (<span><?=(int)$description->likes?></span>)</a></blockquote>
-            <hr>
-            <?php }} ?>
+        <div class="col-sm-8">
+            <h1><?=Yii::t('app', 'Hashtag')?>: <?=$this->title?></h1>
+            <div class="pull-right">
+                <script type="text/javascript" src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js" charset="utf-8"></script>
+                <script type="text/javascript" src="//yastatic.net/share2/share.js" charset="utf-8"></script>
+                <div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,gplus,twitter,blogger,linkedin,lj" data-size="s"></div>
+            </div>
+            <p><time datetime="<?=$model->created?>"><?=date("d/m/Y", strtotime($model->created))?></time></p>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3><?=Yii::t('app', 'Значения')?>:</h3>
+                    <?php if(sizeof($model->descriptions) > 0){foreach($model->descriptions AS $description){ ?>
+                        <blockquote><?=isset($description->description) ? $description->description : ''?><a role="like" href="<?=Url::toRoute(['hashtag/like', 'id' => $description->id])?>" class="label label-primary pull-right"><?=Yii::t('app', 'Like')?> (<span><?=(int)$description->likes?></span>)</a></blockquote>
+                        <hr>
+                    <?php }} ?>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+
         </div>
     </div>
     <?php if(!Yii::$app->user->isGuest){ ?>

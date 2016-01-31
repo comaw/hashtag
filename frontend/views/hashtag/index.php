@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="hashtag-index">
     <h1><?= Html::encode($this->title) ?></h1>
+    <div class="pull-right"><a href="<?=Url::toRoute('site/rss')?>" title="RSS"><i class="fa fa-rss-square"></i> <?=Yii::t('app', 'RSS')?></a></div>
     <p>
         <?= Html::a(Yii::t('app', 'Create Hashtag'), ['add'], ['class' => 'btn btn-success']) ?>
     </p>
