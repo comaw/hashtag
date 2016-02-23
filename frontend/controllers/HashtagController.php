@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use app\models\HashtagDescription;
 use app\models\HashtagDescriptionLike;
+use common\LibTw;
 use Yii;
 use app\models\Hashtag;
 use app\models\HashtagSearch;
@@ -136,9 +137,19 @@ class HashtagController extends Controller
                 return $this->refresh();
             }
         }
+
+        $key = 'hashtagLastViewFor'.$model->tagUrl;
+        $duration = 3600;
+        $lastTwitter = Yii::$app->cacheDB->get($key);
+        if ($lastTwitter === false) {
+            $lastTwitter = LibTw::sendSearch($model->tagUrl, 'recent', 12);
+            Yii::$app->cacheDB->set($key, $lastTwitter, $duration);
+        }
+//        var_dump($lastTwitter);
         return $this->render('view', [
             'model' => $model,
             'newDescription' => $newDescription,
+            'lastTwitter' => $lastTwitter,
         ]);
     }
 

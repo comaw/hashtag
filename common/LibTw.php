@@ -20,9 +20,10 @@ class LibTw {
 
     public static $fields = array('name', 'screan_name', 'location', 'url', 'followers', 'friends', 'time_zone');
 
-    public static function sendSearch($keywords, $recent = 'mixed'){
+    public static function sendSearch($keywords, $recent = 'mixed', $limit = 0){
+        $limit = $limit ? $limit : self::LIMITS;
         $requestMethod = 'GET';
-        $getfield = '?q='.urlencode($keywords).'&count='.self::LIMITS.'&result_type='.$recent.'&lang='.Yii::$app->language;
+        $getfield = '?q='.urlencode($keywords).'&count='.$limit.'&result_type='.$recent.'&lang='.Yii::$app->language;
         $twitter = new TwitterAPIExchange(self::$settings);
         $date = $twitter->setGetfield($getfield)
             ->buildOauth(self::URL, $requestMethod)

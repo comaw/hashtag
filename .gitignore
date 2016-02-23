@@ -1,5 +1,6 @@
 # yii console command
 /yii
+/sxd
 /frontend/runtime
 /frontend/web/assets
 /frontend/web/images/pages

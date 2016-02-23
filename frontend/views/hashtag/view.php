@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use common\UrlHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Hashtag */
@@ -35,25 +36,54 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php }} ?>
                 </div>
             </div>
+            <?php if(!Yii::$app->user->isGuest){ ?>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h3><?=Yii::t('app', 'Добавить свое описание')?>:</h3>
+                        <?php $form = ActiveForm::begin(); ?>
+
+                        <?= $form->field($newDescription, 'description')->textarea(['maxlength' => true])->hint(Yii::t('app', 'Description and use the hashtag. Max 500 chars')) ?>
+
+                        <div class="form-group">
+                            <?= Html::submitButton($newDescription->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $newDescription->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                        </div>
+
+                        <?php ActiveForm::end(); ?>
+                    </div>
+                </div>
+            <?php } ?>
         </div>
         <div class="col-sm-6">
-            <h3><?=Yii::t('app', 'Упоминания об: "{hashteg}"', ['hashteg' => $model->tag ])?></h3>
-        </div>
-    </div>
-    <?php if(!Yii::$app->user->isGuest){ ?>
-    <div class="row">
-        <div class="col-xs-12">
-            <h3><?=Yii::t('app', 'Добавить свое описание')?>:</h3>
-            <?php $form = ActiveForm::begin(); ?>
-
-            <?= $form->field($newDescription, 'description')->textarea(['maxlength' => true])->hint(Yii::t('app', 'Description and use the hashtag. Max 500 chars')) ?>
-
-            <div class="form-group">
-                <?= Html::submitButton($newDescription->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $newDescription->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <h3><?=Yii::t('app', 'Последние твиты по хештегу: "{hashteg}"', ['hashteg' => $model->tag ])?></h3>
+            <?php if(sizeof($lastTwitter['statuses']) > 0){ ?>
+                <?php foreach($lastTwitter['statuses'] AS $dataTweet){ ?>
+            <div class="row">
+                <div class="col-xs-12">
+                    <small><time datetime="<?=date("Y-m-d H:i:s", strtotime($dataTweet['created_at']))?>"><?=date("d/m/Y H:i:s", strtotime($dataTweet['created_at']))?></time></small>
+                    <p class="text-left">
+                        <?=UrlHelper::autoLink($dataTweet['text'], 'both', true, true)?>
+                        <?php if(isset($dataTweet['entities']['media']) && sizeof($dataTweet['entities']['media']) > 0){ ?>
+                            <?php if($dataTweet['entities']['media'][0]['type'] == 'photo'){ ?>
+                                <?=Html::img($dataTweet['entities']['media'][0]['media_url'], [
+                                    'alt' => Html::encode($model->tag),
+                                    'class' => 'img-responsive',
+                                    'rel' => 'nofollow'
+                                ])?>
+                            <?php } ?>
+                        <?php } ?>
+                    </p>
+                    <?php if(isset($dataTweet['entities']['hashtags']) && sizeof($dataTweet['entities']['hashtags']) > 0){ ?>
+                        <ul class="list-inline">
+                        <?php foreach($dataTweet['entities']['hashtags'] AS $entitiesHashtag){ ?>
+                            <li>#<?=$entitiesHashtag['text']?></li>
+                        <?php } ?>
+                        </ul>
+                    <?php } ?>
+                    <hr>
+                </div>
             </div>
-
-            <?php ActiveForm::end(); ?>
+                <?php } ?>
+            <?php } ?>
         </div>
     </div>
-    <?php } ?>
 </div>
