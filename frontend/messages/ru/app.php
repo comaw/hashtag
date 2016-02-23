@@ -63,6 +63,6 @@ return [
     'Description' => 'Описание',
     'Detailed information' => 'Подробная информация',
     'Detail' => 'Подробно',
-    '' => '',
-    '' => '',
+    'Description hashtag' => 'Описание хэштега',
+    ' page {page} ' => ' страница {page} ',
 ];

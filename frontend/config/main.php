@@ -32,6 +32,11 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'cacheDB' => [
+            'class' => 'yii\caching\DbCache',
+            // 'db' => 'mydb',
+             'cacheTable' => '{{%cache}}',
+        ],
         'mail' => [
             'class' => 'yii\swiftmailer\Mailer',
             'viewPath' => '@common/mail',
@@ -108,9 +113,10 @@ return [
                 'site/requestpasswordreset' => 'site/requestpasswordreset',
                 'site/reset-password' => 'site/resetpassword',
 
+                'hashtag/<tag:[a-zA-Z0-9а-яА-Я_\-]+>/view' => 'hashtag/view',
                 'hashtag' => 'hashtag/index',
 //                'hashtag/view/<id:\d+>' => 'hashtag/view',
-                'hashtag/<tag:\#[a-zA-Z0-9а-яА-Я_]+>/view' => 'hashtag/view',
+
                 'сatalog' => 'сatalog/index',
                 'rss' => 'site/rss',
 

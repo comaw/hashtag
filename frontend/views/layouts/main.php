@@ -28,6 +28,7 @@ AppAsset::register($this);
     <?= Html::csrfMetaTags() ?>
     <meta name="author" content="php-shaman">
     <meta name="generator" content="php-shaman">
+    <link rel="canonical" href="<?=Url::canonical()?>">
     <?php $this->head() ?>
 
     <link rel="shortcut icon" href="/css/favicon.ico">
@@ -39,7 +40,7 @@ AppAsset::register($this);
         <div class="container">
             <div class="navbar-header">
                 <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only"><?=Yii::t('app', 'Toggle navigation')?></span>
+                    <span class="sr-only"><!--noindex--><?=Yii::t('app', 'Toggle navigation')?><!--/noindex--></span>
                     <i class="fa fa-cog"></i>
                 </button>
                 <a href="<?=Url::home()?>" class="navbar-brand navbar-brand-img" title="<?=Html::encode(Yii::$app->name)?>"><?=Yii::$app->name?></a>
@@ -62,7 +63,7 @@ AppAsset::register($this);
     <div class="mainnav ">
         <div class="container">
             <a class="mainnav-toggle" data-toggle="collapse" data-target=".mainnav-collapse">
-                <span class="sr-only"><?=Yii::t('app', 'Toggle navigation')?></span>
+                <span class="sr-only"><!--noindex--><?=Yii::t('app', 'Toggle navigation')?><!--/noindex--></span>
                 <i class="fa fa-bars"></i>
             </a>
             <nav class="collapse mainnav-collapse" role="navigation">

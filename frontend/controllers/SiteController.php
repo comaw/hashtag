@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use app\models\Hashtag;
 use app\models\LoginError;
+use common\LibTw;
 use Yii;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -10,6 +11,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use yii\base\InvalidParamException;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -89,6 +91,35 @@ class SiteController extends Controller
         return $this->renderPartial('rss', [
             'models' => $models,
         ]);
+    }
+
+    public function actionTest()
+    {
+        $tag = 'yii2';
+        $key = 'actionTest'.$tag;
+        $duration = 60;
+        $data = Yii::$app->cacheDB->get($key);
+//        $current = Hashtag::getOneTagByTag($tag);
+//        if(!$current){
+//            throw new \HttpRequestException('Not fount tag');
+//        }
+        if ($data === false) {
+            $data = LibTw::sendSearch($tag);
+            Yii::$app->cacheDB->set($key, $data, $duration);
+        }
+//        $relevantsList = [];
+//        foreach($data['statuses'] AS $statuses){
+//            if(isset($statuses['entities']['hashtags'])){
+//                foreach($statuses['entities']['hashtags'] AS $hashtag){
+//                    if(isset($hashtag['text']) && mb_strtolower($hashtag['text'], Yii::$app->charset) != mb_strtolower($tag, Yii::$app->charset)){
+//                        $relevantsList[] = $hashtag['text'];
+//                    }
+//                }
+//            }
+//        }
+//        $relevantsList = array_unique($relevantsList);
+//        Hashtag::addRelevant($current->id, $relevantsList);
+        var_dump($data);
     }
 
     /**

@@ -1,6 +1,8 @@
 User-agent: Yandex
 Disallow: /hashtag/search/
 Disallow: /hashtag/add/
+Disallow: /hashtag/like
+Disallow: /hashtag/like/
 Disallow: /cgi-bin/
 Host: myhashtag.top
 Sitemap: http://myhashtag.top/sitemap.xml
@@ -9,5 +11,7 @@ Sitemap: http://myhashtag.top/sitemap.xml
 User-agent: *
 Disallow: /hashtag/search/
 Disallow: /hashtag/add/
+Disallow: /hashtag/like
+Disallow: /hashtag/like/
 Disallow: /cgi-bin/
 Sitemap: http://myhashtag.top/sitemap.xml

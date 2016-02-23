@@ -23,7 +23,7 @@ use yii\helpers\Url;
         <?php foreach($models AS $model){ ?>
         <item>
             <title><?=Html::encode($model->tag)?></title>
-            <link><?=Url::toRoute(['hashtag/view', 'tag' => $model->tag], true)?></link>
+            <link><?=Url::toRoute(['hashtag/view', 'tag' => $model->tagUrl], true)?></link>
             <?php if(sizeof($model->descriptions) > 0){foreach($model->descriptions AS $description){ ?>
                 <description><?=isset($description->description) ? Html::encode($description->description) : ''?></description>
             <?php break; }} ?>

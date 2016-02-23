@@ -8,11 +8,14 @@ use yii\helpers\Url;
 /* @var $searchModel app\models\HashtagSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Hashtags');
+$page = Yii::$app->request->get('page');
+
+$this->title = Yii::t('app', 'Hashtags') . ((isset($page) && $page > 1) ? Yii::t('app', ' page {page} ', ['page' => $page]) : '');
+$this->registerMetaTag(['name' => 'description', 'content' => $this->title]);
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="hashtag-index">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1><?= Yii::t('app', 'Hashtags') ?></h1>
     <div class="pull-right"><a href="<?=Url::toRoute('site/rss')?>" title="RSS"><i class="fa fa-rss-square"></i> <?=Yii::t('app', 'RSS')?></a></div>
     <p>
         <?= Html::a(Yii::t('app', 'Create Hashtag'), ['add'], ['class' => 'btn btn-success']) ?>
@@ -45,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => '',
                 'format' => 'raw',
                 'value' => function($data){
-                    return "<a href='".Url::toRoute(['hashtag/view', 'tag' => $data->tag])."' class='btn btn-info btn-sm' title='".Html::encode(Yii::t('app', 'Detail'))."'>".Yii::t('app', 'Detail')."</a>";
+                    return "<a href='".Url::toRoute(['hashtag/view', 'tag' => $data->tagUrl])."' class='btn btn-info btn-sm' title='".Html::encode(Yii::t('app', 'Detail'))."'>".Yii::t('app', 'Detail')."</a>";
                 },
                 'filter' => false,
             ],

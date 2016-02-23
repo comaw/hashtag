@@ -11,13 +11,15 @@ use yii\helpers\Url;
 /* @var $newDescription app\models\HashtagDescription */
 
 $this->title = $model->tag;
+$this->registerMetaTag([ 'name' => 'description', 'content' => $this->title]);
+
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Hashtags'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="hashtag-view">
     <div class="row">
-        <div class="col-sm-8">
-            <h1><?=Yii::t('app', 'Hashtag')?>: <?=$this->title?></h1>
+        <div class="col-sm-6">
+            <h1><?=Yii::t('app', 'Description hashtag')?>: <?=$this->title?></h1>
             <div class="pull-right">
                 <script type="text/javascript" src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js" charset="utf-8"></script>
                 <script type="text/javascript" src="//yastatic.net/share2/share.js" charset="utf-8"></script>
@@ -34,8 +36,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
-
+        <div class="col-sm-6">
+            <h3><?=Yii::t('app', 'Упоминания об: "{hashteg}"', ['hashteg' => $model->tag ])?></h3>
         </div>
     </div>
     <?php if(!Yii::$app->user->isGuest){ ?>

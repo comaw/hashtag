@@ -34,7 +34,7 @@ use yii\helpers\Url;
     <?php } ?>
     <?php foreach($models AS $model){ ?>
         <url>
-            <loc><?=Url::toRoute(['hashtag/view', 'tag' => $model->tag], true)?></loc>
+            <loc><?=Url::toRoute(['hashtag/view', 'tag' => $model->tagUrl], true)?></loc>
             <lastmod><?=date("Y-m-d", strtotime($model->created))?></lastmod>
             <changefreq>weekly</changefreq>
             <priority>0.7</priority>

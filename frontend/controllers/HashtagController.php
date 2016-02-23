@@ -53,7 +53,7 @@ class HashtagController extends Controller
      * Lists all Hashtag models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($page = 0)
     {
         $searchModel = new HashtagSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

@@ -12,6 +12,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Search hashtags');
+$this->registerMetaTag(['name' => 'description', 'content' => $this->title]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Hashtags'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -52,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <tr>
                     <td><?=$num + 1?></td>
                     <td><?=$tag->tag?></td>
-                    <td><?="<a href='".Url::toRoute(['hashtag/view', 'tag' => $tag->tag])."' class='btn btn-info btn-sm' title='".Html::encode(Yii::t('app', 'Detail'))."'>".Yii::t('app', 'Detail')."</a>"?></td>
+                    <td><?="<a href='".Url::toRoute(['hashtag/view', 'tag' => $tag->tagUrl])."' class='btn btn-info btn-sm' title='".Html::encode(Yii::t('app', 'Detail'))."'>".Yii::t('app', 'Detail')."</a>"?></td>
                 </tr>
             <?php } ?>
             </tbody>
